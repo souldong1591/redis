@@ -24,11 +24,11 @@ start_server {tags {"maxmemory"}} {
     }
 
     foreach policy {
-        allkeys-random allkeys-lru volatile-lru volatile-random volatile-ttl
+        allkeys-random allkeys-lru allkeys-lfu volatile-lru volatile-lfu volatile-random volatile-ttl
     } {
         test "maxmemory - is the memory limit honoured? (policy $policy)" {
             # make sure to start with a blank instance
-            r flushall 
+            r flushall
             # Get the current memory limit and calculate a new limit.
             # We just add 100k to the current memory size so that it is
             # fast for us to reach that limit.
@@ -60,7 +60,7 @@ start_server {tags {"maxmemory"}} {
     } {
         test "maxmemory - only allkeys-* should remove non-volatile keys ($policy)" {
             # make sure to start with a blank instance
-            r flushall 
+            r flushall
             # Get the current memory limit and calculate a new limit.
             # We just add 100k to the current memory size so that it is
             # fast for us to reach that limit.
@@ -98,11 +98,11 @@ start_server {tags {"maxmemory"}} {
     }
 
     foreach policy {
-        volatile-lru volatile-random volatile-ttl
+        volatile-lru volatile-lfu volatile-random volatile-ttl
     } {
         test "maxmemory - policy $policy should only remove volatile keys." {
             # make sure to start with a blank instance
-            r flushall 
+            r flushall
             # Get the current memory limit and calculate a new limit.
             # We just add 100k to the current memory size so that it is
             # fast for us to reach that limit.

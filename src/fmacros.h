@@ -34,6 +34,11 @@
 
 #if defined(__linux__)
 #define _GNU_SOURCE
+#define _DEFAULT_SOURCE
+#endif
+
+#if defined(_AIX)
+#define _ALL_SOURCE
 #endif
 
 #if defined(__linux__) || defined(__OpenBSD__)
